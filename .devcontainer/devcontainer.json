@@ -17,7 +17,8 @@
 				"GitHub.copilot",
 				"eamodio.gitlens",
 				"ms-vscode.vscode-typescript-next",
-				"PKief.material-icon-theme"
+				"PKief.material-icon-theme",
+				"esbenp.prettier-vscode"
 			]
 		}
 	}
