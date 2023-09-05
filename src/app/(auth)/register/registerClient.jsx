@@ -12,6 +12,7 @@ import Divider from "@/components/divider/Divider";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
+import { useRouter } from "next/navigation";
 
 const RegisterClient = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +35,6 @@ const RegisterClient = () => {
       .then((useCredential) => {
         const user = useCredential.user;
         console.log(user);
-        ç
 
         setIsLoading(false);
 
@@ -60,30 +60,33 @@ const RegisterClient = () => {
           <form className={styles.form} onSubmit={registUser}>
             {/* inputs */}
             <Input
-              value={email}
-              id="email"
               email
               icon="letter"
+              id="email"
+              name="email"
               label="이메일"
               placeholder="이메일을 입력하세요."
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
-              value={password}
-              id="password"
               password
               icon="lock"
+              id="password"
+              name="password"
               label="패스워드"
               placeholder="패스워드를 입력하세요."
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <Input
-              value={confirmPassword}
-              id="confirmPassword"
               password
               icon="lock"
+              id="password"
+              name="password"
               label="패스워드 확인"
               placeholder="위와 똑같은 패스워드를 입력하세요."
+              value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             {/* buttons */}
