@@ -1,20 +1,36 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import styles from './resetClient.module.scss';
-import Button from '@/components/button/Button';
-import Input from '@/components/input/Input';
-import Loader from '@/components/loader/Loader';
-import Heading from '@/components/heading/Heading';
-import Link from 'next/link';
+import React, { useState } from "react";
+import styles from "./resetClient.module.scss";
+import Button from "@/components/button/Button";
+import Input from "@/components/input/Input";
+import Loader from "@/components/loader/Loader";
+import Heading from "@/components/heading/Heading";
+import Link from "next/link";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "@/firebase/firebase";
+import { toast } from "react-toastify";
 
 const ResetClient = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const resetPassword = (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        setIsLoading(false);
+
+        toast.success("비밀번호 업데이트를 위해서 이메일을 체크해주세요.");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        
+
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -47,10 +63,10 @@ const ResetClient = () => {
               {/* links */}
               <div className={styles.links}>
                 <p>
-                  <Link href={'/login'}>-로그인 </Link>
+                  <Link href={"/login"}>-로그인 </Link>
                 </p>
                 <p>
-                  <Link href={'/register'}>-회원가입</Link>
+                  <Link href={"/register"}>-회원가입</Link>
                 </p>
               </div>
             </form>
