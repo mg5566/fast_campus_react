@@ -13,7 +13,11 @@ import Button from "@/components/button/Button";
 import Link from "next/link";
 import Arrow from "@/assets/arrow.svg";
 import { toast } from "react-toastify";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "@/firebase/firebase";
 
 const LoginClient = () => {
@@ -46,7 +50,17 @@ const LoginClient = () => {
       });
   };
 
-  const signInWithGoogle = () => {};
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        toast.success("구글 로그인에 성공했습니다.");
+        redirectUser();
+      })
+      .catch((error) => {
+        toast.error(error.message, "구글 로그인에 실패했습니다.");
+      });
+  };
 
   return (
     <>
