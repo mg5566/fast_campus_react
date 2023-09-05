@@ -13,6 +13,8 @@ import Button from "@/components/button/Button";
 import Link from "next/link";
 import Arrow from "@/assets/arrow.svg";
 import { toast } from "react-toastify";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase/firebase";
 
 const LoginClient = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +31,19 @@ const LoginClient = () => {
   const loginUser = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    toast.info("성공");
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setIsLoading(false);
+        // Signed in
+        console.log("userCredential", userCredential);
+        toast.success("로그인에 성공했습니다.");
+        redirectUser();
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error(error.message, "로그인에 실패했습니다.");
+      });
   };
 
   const signInWithGoogle = () => {};
@@ -85,11 +99,11 @@ const LoginClient = () => {
             </div>
             <div className={styles.buttonGroup}>
               <Button type="submit" width="100%">
-                로그인 버튼
+                로그인
               </Button>
               <Divider />
               <Button width="100%" secondary>
-                <Link href={"/register"}>회원가입 버튼</Link>
+                <Link href={"/register"}>회원가입</Link>
               </Button>
               <Divider />
               <div>
