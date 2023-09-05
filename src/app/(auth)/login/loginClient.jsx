@@ -1,33 +1,35 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import React, { useState } from 'react';
-import LogoPath from '@/assets/colorful.svg';
-import { useRouter } from 'next/navigation';
-import styles from './loginClient.module.scss';
-import Loader from '@/components/loader/Loader';
-import Input from '@/components/input/Input';
-import AutoSignInCheckbox from '@/components/autoSignInCheckBox/AutoSignInCheckbox';
-import Divider from '@/components/divider/Divider';
-import Button from '@/components/button/Button';
-import Link from 'next/link';
-import Arrow from '@/assets/arrow.svg';
+import Image from "next/image";
+import React, { useState } from "react";
+import LogoPath from "@/assets/colorful.svg";
+import { useRouter } from "next/navigation";
+import styles from "./loginClient.module.scss";
+import Loader from "@/components/loader/Loader";
+import Input from "@/components/input/Input";
+import AutoSignInCheckbox from "@/components/autoSignInCheckBox/AutoSignInCheckbox";
+import Divider from "@/components/divider/Divider";
+import Button from "@/components/button/Button";
+import Link from "next/link";
+import Arrow from "@/assets/arrow.svg";
+import { toast } from "react-toastify";
 
 const LoginClient = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isAutoLogin, setIsAutoLogin] = useState(false);
 
   const router = useRouter();
 
   const redirectUser = () => {
-    router.push('/');
+    router.push("/");
   };
 
   const loginUser = (e) => {
     e.preventDefault();
     setIsLoading(true);
+    toast.info("성공");
   };
 
   const signInWithGoogle = () => {};
@@ -72,7 +74,7 @@ const LoginClient = () => {
                 }}
               />
               {/* 비밀번호 수정 */}
-              <Link href={'/reset'} className={styles.findLink}>
+              <Link href={"/reset"} className={styles.findLink}>
                 비밀번호 변경
                 <Image
                   className={styles.findLinkArrow}
@@ -87,7 +89,7 @@ const LoginClient = () => {
               </Button>
               <Divider />
               <Button width="100%" secondary>
-                <Link href={'/register'}>회원가입 버튼</Link>
+                <Link href={"/register"}>회원가입 버튼</Link>
               </Button>
               <Divider />
               <div>
