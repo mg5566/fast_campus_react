@@ -1,36 +1,36 @@
-import classNames from 'classnames';
-import React, { useState } from 'react';
-import styles from './Input.module.scss';
-import Icon from '@/components/icon/Icon';
+import classNames from "classnames";
+import React, { useState } from "react";
+import styles from "./Input.module.scss";
+import Icon from "@/components/icon/Icon";
 
 const Input = ({
   id,
   label,
-  name = '',
+  name = "",
   labelVisible,
   icon,
   email,
   password,
-  placeholder = '',
+  placeholder = "",
   readOnly,
   disabled,
   value,
   error: errorProp,
-  className = '',
+  className = "",
   onChange,
   ...restProps
 }) => {
-  const [inputValue, setInputValue] = useState(value ? value : '');
+  const [inputValue, setInputValue] = useState(value ? value : "");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const checkType = () => {
     if (email) {
-      return 'email';
+      return "email";
     }
     if (password) {
-      return isPasswordVisible ? 'text' : 'password';
+      return isPasswordVisible ? "text" : "password";
     }
-    return 'text';
+    return "text";
   };
 
   const handleChange = (e) => {
@@ -38,8 +38,8 @@ const Input = ({
     onChange(e);
   };
 
-  const iconType = isPasswordVisible ? 'show' : 'hide';
-  const iconLabel = isPasswordVisible ? '비밀번호 숨기기' : '비밀번호 보이기';
+  const iconType = isPasswordVisible ? "show" : "hide";
+  const iconLabel = isPasswordVisible ? "비밀번호 숨기기" : "비밀번호 보이기";
 
   return (
     <div className={classNames(styles.formControl, className)}>
@@ -59,7 +59,7 @@ const Input = ({
         {icon ? <Icon type={icon} /> : null}
         <input
           id={id}
-          type={checkType}
+          type={checkType()}
           name={name}
           className={classNames(styles.input)}
           placeholder={placeholder}
